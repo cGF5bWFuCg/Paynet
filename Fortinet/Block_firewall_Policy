@@ -8,6 +8,7 @@ config firewall policy
         set internet-service-name "Blockchain-Crypto.Mining.Pool" "Botnet-C&C.Server" "Spam-Spamming.Server" "Phishing-Phishing.Server" "VPN-Anonymous.VPN" "Tor-Relay.Node" "Proxy-Proxy.Server" "Malicious-Malicious.Server"
         set schedule "always"
         set logtraffic all
+        set match-vip enable
     next
 end
 config firewall policy
@@ -21,6 +22,7 @@ config firewall policy
         set schedule "always"
         set service "ALL"
         set logtraffic all
+        set match-vip enable
     next
 end
 config firewall policy
@@ -33,6 +35,7 @@ config firewall policy
         set schedule "always"
         set service "ALL"
         set logtraffic all
+        set match-vip enable
     next
 end
 config firewall policy
@@ -45,5 +48,6 @@ config firewall policy
         set schedule "always"
         set service "ALL"
         set logtraffic all
+        set match-vip enable
     next
 end
