@@ -120,14 +120,14 @@ def main():
             create_address_object(row, args.ip, args.token, args.adom, success_list, failure_list)
 
     # Final summary of success and failure
-    print("\nSummary Report:")
-    print("---------------")
-    print(f"Total Successful Additions: {len(success_list)}")
+    print("\n> Summary Report:")
+    print("> ---------------")
+    print(f"> Total Successful Additions: {len(success_list)}")
     for name in success_list:
-        print(f"  - {name}")
-    print(f"\nTotal Failed Additions: {len(failure_list)}")
+        print(f">> {name}")
+    print(f"> Total Failed Additions: {len(failure_list)}")
     for name, reason in failure_list:
-        print(f"  - {name}: {reason}")
+        print(f">> {name}: \n>>> {reason}\n")
 
 if __name__ == "__main__":
     main()
