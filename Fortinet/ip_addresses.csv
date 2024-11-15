@@ -1,5 +1,0 @@
-name,subnet,start_ip,end_ip,fqdn,country,macaddr,type,comment
-Address1,192.168.1.0/24,,,,,,ipmask,Example IP Mask
-Address2,,192.168.1.1,192.168.1.10,,,,iprange,Example IP Range
-Address3,,,,example.com,,,fqdn,Example FQDN
-Address4,,,,,AT,,geography,Example Geography

@@ -4,7 +4,7 @@ import argparse
 import json
 
 # Function to add object to FortiManager
-def add_object_to_fortimanager(fmg_ip, api_token, adom, data):
+def add_object_to_fortimanager(fmg_ip, api_token, adom, data, success_list, failure_list):
     api_url = f"https://{fmg_ip}/jsonrpc"
     
     headers = {
@@ -32,13 +32,16 @@ def add_object_to_fortimanager(fmg_ip, api_token, adom, data):
         result = response.json().get("result", [])
         if result and result[0].get("status", {}).get("code") == 0:
             print(f"Successfully added object: {data['name']}")
+            success_list.append(data['name'])
         else:
             print(f"Failed to add object: {data['name']}, Response: {response.json()}")
+            failure_list.append((data['name'], response.json()))
     else:
         print(f"Failed to add object: {data['name']}, Status Code: {response.status_code}, Response: {response.text}")
+        failure_list.append((data['name'], response.text))
 
 # Function to create address object
-def create_address_object(row, fmg_ip, api_token, adom):
+def create_address_object(row, fmg_ip, api_token, adom, success_list, failure_list):
     obj_type = row['type']
     data = {
         "name": row['name'],
@@ -52,6 +55,7 @@ def create_address_object(row, fmg_ip, api_token, adom):
             data["subnet"] = row['subnet']
         else:
             print(f"Error: No subnet provided for {row['name']}")
+            failure_list.append((row['name'], "Missing subnet"))
             return
     elif obj_type == 'iprange':
         if row['start_ip'] and row['end_ip']:
@@ -59,60 +63,72 @@ def create_address_object(row, fmg_ip, api_token, adom):
             data["end-ip"] = row['end_ip']
         else:
             print(f"Error: Missing IP range for {row['name']}")
+            failure_list.append((row['name'], "Missing IP range"))
             return
     elif obj_type == 'fqdn':
         if row['fqdn']:
             data["fqdn"] = row['fqdn']
         else:
             print(f"Error: No FQDN provided for {row['name']}")
+            failure_list.append((row['name'], "Missing FQDN"))
             return
     elif obj_type == 'geography':
         if row['country']:
             data["country"] = row['country']
         else:
             print(f"Error: No country provided for {row['name']}")
+            failure_list.append((row['name'], "Missing country"))
             return
     elif obj_type == 'wildcard':
         if row['subnet']:
             data["subnet"] = row['subnet']
         else:
             print(f"Error: No subnet provided for {row['name']}")
+            failure_list.append((row['name'], "Missing subnet"))
             return
-    # elif obj_type == 'mac':
-    #     if row['macaddr']:
-    #         data["macaddr"] = [{"macaddr": row['macaddr']}]
-    #     else:
-    #         print(f"Error: No MAC address provided for {row['name']}")
-    #         return
     elif obj_type == 'wildcard-fqdn':
         if row['fqdn']:
             data["fqdn"] = row['fqdn']
         else:
             print(f"Error: No FQDN provided for {row['name']}")
+            failure_list.append((row['name'], "Missing FQDN"))
             return
 
     # Send the data to FortiManager
-    add_object_to_fortimanager(fmg_ip, api_token, adom, data)
+    add_object_to_fortimanager(fmg_ip, api_token, adom, data, success_list, failure_list)
 
 # Main function to handle CSV and arguments
 def main():
     # Argument parsing
     parser = argparse.ArgumentParser(description="FortiManager Address Importer")
-    parser.add_argument("--ip", required=True, help="FortiManager IP address")
-    parser.add_argument("--token", required=True, help="FortiManager API token")
-    parser.add_argument("--adom", required=True, help="Administrative Domain (ADOM) in FortiManager")
-    parser.add_argument("--file", required=True, help="Path to the CSV file")
-
+    parser.add_argument("-i", "--ip", required=True, help="FortiManager IP address")
+    parser.add_argument("-t", "--token", required=True, help="FortiManager API token")
+    parser.add_argument("-a", "--adom", required=True, help="Administrative Domain (ADOM) in FortiManager")
+    parser.add_argument("-f", "--file", required=True, help="Path to the CSV file")
+    
     args = parser.parse_args()
 
-    # Reading CSV file
-    with open(args.file, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
+    # Lists to track success and failure of each object addition
+    success_list = []
+    failure_list = []
+
+    # Reading CSV file with specified delimiter and encoding
+    with open(args.file, newline='', encoding='utf-8-sig') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')  # specify delimiter as ';'
+        print("Headers:", reader.fieldnames)  # Debugging line to print headers
         for row in reader:
-            create_address_object(row, args.ip, args.token, args.adom)
+            create_address_object(row, args.ip, args.token, args.adom, success_list, failure_list)
+
+    # Final summary of success and failure
+    print("\nSummary Report:")
+    print("---------------")
+    print(f"Total Successful Additions: {len(success_list)}")
+    for name in success_list:
+        print(f"  - {name}")
+    print(f"\nTotal Failed Additions: {len(failure_list)}")
+    for name, reason in failure_list:
+        print(f"  - {name}: {reason}")
 
 if __name__ == "__main__":
     main()
 
-# python import_object_to_fmg.py -i 192.168.1.1 -t your_api_token -a root -f objects.csv
-# python import_object_to_fmg.py --ip 192.168.1.1 --token your_api_token --adom root --file objects.csv
