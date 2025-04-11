@@ -1,6 +1,5 @@
 # 06 - IPsec
 ## Monitor IPsec VPN Tunnels
-### Monitoring IPsec VPN Tunnels
 ```
 get vpn ipsec tunnel summary
 ```
@@ -39,7 +38,7 @@ Provides detailed information about active IPsec tunnels. <br />The output inclu
 ### IKE Gateway List
 
 ```
-diagnose vpn ike gateway list
+:bulb: **Tip:** diagnose vpn ike gateway list
 ```
 Provides details about IKE gateways (phase 1 of the VPN connection). 
 ```
@@ -51,4 +50,4 @@ diagnose vpn ike gateway clear <name>
 ``` 
 Closes a phase 1 connection and should be used with caution as clearing without a name affects all VDOMs.
 
-###
+### 
