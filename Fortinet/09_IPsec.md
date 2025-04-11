@@ -26,4 +26,4 @@ Displays the current IPsec Security Association (SA) information for all active 
 diagnose vpn tunnel list name <tunnel name>
 ```
 Shows SA information for a specific tunnel.<br />
-The output includes details like <markt> the tunnel name<markt>, versions, serial numbers, local and remote gateways, bound interface, mode, encapsulation, options, proxy ID numbers, child SAs, reference counts, last sent and received timestamps, auto-discovery status, traffic statistics, DPD information, NAT-T status, and SA details such as SPIs, encryption and authentication algorithms, and key information. The npu_flag field indicates the hardware offloading status of the IPsec SAs.
+The output includes details like == the tunnel name ==, versions, serial numbers, local and remote gateways, bound interface, mode, encapsulation, options, proxy ID numbers, child SAs, reference counts, last sent and received timestamps, auto-discovery status, traffic statistics, DPD information, NAT-T status, and SA details such as SPIs, encryption and authentication algorithms, and key information. The npu_flag field indicates the hardware offloading status of the IPsec SAs.
