@@ -8,15 +8,12 @@ Provides summarized information about VPNs, including their status, selectors, a
 get ipsec tunnel list
 ```
 Shows a list of active IPsec tunnels with their remote gateway, proxy IDs, status, and timeout values
-
 ### IPsec SA Management
 IKE negotiates two distinct SA types in two phases: Phase 1 negotiates the IKE SA, which sets up a secure channel, and Phase 2 negotiates the IPsec SA, which is used for encrypting and decrypting data. SAs have a lifetime and must be renegotiated.
-
 ```
 diagnose vpn tunnel ?
 ```
 Offers options to manage VPN tunnels, including ```down``` (shut down), ```up```(activate), ```list``` (list all tunnels), and ```flush``` (flush tunnel SAs).
-
 ### IPsec SA
 ```
 diagnose vpn tunnel list
@@ -27,17 +24,13 @@ diagnose vpn tunnel list name <tunnel name>
 ```
 Shows SA information for a specific tunnel.<br />
 The output includes details like the **tunnel name**, **versions**, **serial numbers**, **local** and **remote** gateways, **bound interface**, **mode**, **encapsulation**, options, proxy ID numbers, child SAs, reference counts, **last sent and received timestamps**, auto-discovery status, traffic statistics, **DPD information**, **NAT-T status**, and **SA details** such as SPIs, encryption and authentication algorithms, and key information. The ```npu_flag``` field indicates the **hardware offloading status** of the IPsec SAs.
-
 ### IPsec Tunnel Details
-
 ```
 get vpn ipsec tunnel details
 ```
 Provides detailed information about active IPsec tunnels. <br />The output includes the tunnel name, type, local and remote gateways, mode (IKE version), interface, traffic counters (packets and bytes sent/received, errors), DPD status, phase 2 selectors (source and destination addresses/ports/protocols), SA lifetime/rekey values, MTU, replay status, and the negotiated encryption, authentication, and keys for both inbound and outbound SAs.
-
 ### IKE Gateway List
-
-&rarr; ```
+```
 diagnose vpn ike gateway list
 ```
 Provides details about IKE gateways (phase 1 of the VPN connection). 
@@ -49,5 +42,8 @@ Shows information for a specific tunnel, including the virtual domain, name, ver
 diagnose vpn ike gateway clear <name>
 ``` 
 Closes a phase 1 connection and should be used with caution as clearing without a name affects all VDOMs.
-
-### 
+### Additional IPsec Debug Commands
+```
+get vpn ipsec stats tunnel
+```
+rovides global counters related to all active VPNs, including the total number of tunnels (static/DDNS, dynamic, manual), errors, and the total and up counts of selectors.
