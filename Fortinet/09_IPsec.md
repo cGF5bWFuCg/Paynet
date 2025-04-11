@@ -27,3 +27,8 @@ diagnose vpn tunnel list name <tunnel name>
 ```
 Shows SA information for a specific tunnel.<br />
 The output includes details like the **tunnel name**, **versions**, **serial numbers**, **local** and **remote** gateways, **bound interface**, **mode**, **encapsulation**, options, proxy ID numbers, child SAs, reference counts, **last sent and received timestamps**, auto-discovery status, traffic statistics, **DPD information**, **NAT-T status**, and **SA details** such as SPIs, encryption and authentication algorithms, and key information. The ```npu_flag``` field indicates the **hardware offloading status** of the IPsec SAs.
+
+### IPsec Tunnel Details
+
+```get vpn ipsec tunnel details```
+Provides detailed information about active IPsec tunnels. <br />The output includes the tunnel name, type, local and remote gateways, mode (IKE version), interface, traffic counters (packets and bytes sent/received, errors), DPD status, phase 2 selectors (source and destination addresses/ports/protocols), SA lifetime/rekey values, MTU, replay status, and the negotiated encryption, authentication, and keys for both inbound and outbound SAs.
