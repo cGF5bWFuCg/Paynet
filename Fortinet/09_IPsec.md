@@ -37,8 +37,8 @@ Provides detailed information about active IPsec tunnels. <br />The output inclu
 
 ### IKE Gateway List
 
-```
-:bulb: **Tip:** diagnose vpn ike gateway list
+&rarr; ```
+diagnose vpn ike gateway list
 ```
 Provides details about IKE gateways (phase 1 of the VPN connection). 
 ```
