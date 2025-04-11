@@ -34,3 +34,18 @@ The output includes details like the **tunnel name**, **versions**, **serial num
 get vpn ipsec tunnel details
 ```
 Provides detailed information about active IPsec tunnels. <br />The output includes the tunnel name, type, local and remote gateways, mode (IKE version), interface, traffic counters (packets and bytes sent/received, errors), DPD status, phase 2 selectors (source and destination addresses/ports/protocols), SA lifetime/rekey values, MTU, replay status, and the negotiated encryption, authentication, and keys for both inbound and outbound SAs.
+
+### IKE Gateway List
+
+```
+diagnose vpn ike gateway list
+```
+Provides details about IKE gateways (phase 1 of the VPN connection). 
+```
+diagnose vpn ike gateway list name <tunnel name> 
+```
+Shows information for a specific tunnel, including the virtual domain, name, version, interface, local and remote addresses and ports, creation time, auto-discovery status, IKE and IPsec SA creation and establishment times, IDs/SPIs, direction (initiator/responder), status, negotiated proposal, key, lifetime/rekey values, and DPD statistics. 
+```
+diagnose vpn ike gateway clear <name>
+``` 
+Closes a phase 1 connection and should be used with caution as clearing without a name affects all VDOMs.
