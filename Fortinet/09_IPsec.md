@@ -64,7 +64,16 @@ diagnose debug disable
 diagnose debug reset
 ```
 Remember to disable all debug applications after troubleshooting.
-#### Debug an IPsec VPN Connection
+## IKE Filter Options
+```
+diagnose vpn ike log filter
+```
+Allows you to set filters for the IKE real-time debug output to focus on relevant information. Common filter options include ```rem-addr4``` (filter by remote gateway IPv4 address), ```mdst-addr6``` (multiple IPv6 remote gateway addresses), ```dst-port```, vd (virtual domain), ```interface```, and negate. 
+```
+diagnose vpn ike log filter clear
+```
+Remove any set filters.
+## IKE Real-Time Debug
 ```
 diagnose debug enable
 diagnose debug disable
@@ -75,12 +84,3 @@ diagnose debug console timestamp enable
 .
 diagnose debug disable
 ```
-## IKE Filter Options
-```
-diagnose vpn ike log filter
-```
-Allows you to set filters for the IKE real-time debug output to focus on relevant information. Common filter options include ```rem-addr4``` (filter by remote gateway IPv4 address), ```mdst-addr6``` (multiple IPv6 remote gateway addresses), ```dst-port```, vd (virtual domain), ```interface```, and negate. 
-```
-diagnose vpn ike log filter clear
-```
-Remove any set filters.
