@@ -33,8 +33,4 @@ The output includes details like the **tunnel name**, **versions**, **serial num
 ```
 get vpn ipsec tunnel details
 ```
-
-```
-diagnose vpn tunnel list
-```
 Provides detailed information about active IPsec tunnels. <br />The output includes the tunnel name, type, local and remote gateways, mode (IKE version), interface, traffic counters (packets and bytes sent/received, errors), DPD status, phase 2 selectors (source and destination addresses/ports/protocols), SA lifetime/rekey values, MTU, replay status, and the negotiated encryption, authentication, and keys for both inbound and outbound SAs.
