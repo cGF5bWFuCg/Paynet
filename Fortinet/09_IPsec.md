@@ -53,4 +53,9 @@ The IKE daemon handles all IPsec connections. To enable real-time debug for IKE.
 diagnose debug application ike <bitmask> 
 diagnose debug enable
 ```
-A bitmask of -1 is recommended to enable all outputs, which includes DPD packets and negotiation information. Enabling timestamps with # diagnose debug console timestamp enable is also helpful. Remember to disable debug after troubleshooting using # diagnose debug application ike 0 and # diagnose debug disable or # diagnose debug reset to disable all debug applications.
+A bitmask of -1 is recommended to enable all outputs, which includes DPD packets and negotiation information. 
+```
+diagnose debug application ike -1 
+diagnose debug enable
+```
+Enabling timestamps with # diagnose debug console timestamp enable is also helpful. Remember to disable debug after troubleshooting using # diagnose debug application ike 0 and # diagnose debug disable or # diagnose debug reset to disable all debug applications.
