@@ -16,3 +16,14 @@ IKE negotiates two distinct SA types in two phases: Phase 1 negotiates the IKE S
 diagnose vpn tunnel ?
 ```
 Offers options to manage VPN tunnels, including ```down``` (shut down), ```up```(activate), ```list``` (list all tunnels), and ```flush``` (flush tunnel SAs).
+
+### IPsec SA
+```
+diagnose vpn tunnel list
+```
+Displays the current IPsec Security Association (SA) information for all active tunnels.
+```
+diagnose vpn tunnel list name <tunnel name>
+```
+Shows SA information for a specific tunnel.
+The output includes details like the tunnel name, versions, serial numbers, local and remote gateways, bound interface, mode, encapsulation, options, proxy ID numbers, child SAs, reference counts, last sent and received timestamps, auto-discovery status, traffic statistics, DPD information, NAT-T status, and SA details such as SPIs, encryption and authentication algorithms, and key information. The npu_flag field indicates the hardware offloading status of the IPsec SAs.
