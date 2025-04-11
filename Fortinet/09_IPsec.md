@@ -55,7 +55,22 @@ diagnose debug enable
 ```
 A bitmask of -1 is recommended to enable all outputs, which includes DPD packets and negotiation information. 
 ```
-diagnose debug application ike -1 
-diagnose debug enable
+diagnose debug console timestamp enable
 ```
-Enabling timestamps with # diagnose debug console timestamp enable is also helpful. Remember to disable debug after troubleshooting using # diagnose debug application ike 0 and # diagnose debug disable or # diagnose debug reset to disable all debug applications.
+Enabling timestamps is also helpful. 
+```
+diagnose debug application ike 0
+diagnose debug disable
+diagnose debug reset
+```
+Remember to disable all debug applications after troubleshooting.
+```
+diagnose debug enable
+diagnose debug disable
+diagnose debug application ike -1
+diagnose debug console timestamp enable
+.
+.
+.
+diagnose debug disable
+```
