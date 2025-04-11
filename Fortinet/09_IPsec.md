@@ -48,11 +48,11 @@ get vpn ipsec stats tunnel
 ```
 Provides global counters related to all active VPNs, including the total number of tunnels (static/DDNS, dynamic, manual), errors, and the total and up counts of selectors.
 ## Debug an IPsec VPN Connection
-The IKE daemon handles all IPsec connections. To enable real-time debug for IKE.
 ```
 diagnose debug application ike <bitmask> 
 diagnose debug enable
 ```
+The IKE daemon handles all IPsec connections. To enable real-time debug for IKE.
 A bitmask of -1 is recommended to enable all outputs, which includes DPD packets and negotiation information. 
 ```
 diagnose debug console timestamp enable
@@ -80,7 +80,7 @@ diagnose debug disable
 diagnose vpn ike log filter
 ```
 Allows you to set filters for the IKE real-time debug output to focus on relevant information. Common filter options include ```rem-addr4``` (filter by remote gateway IPv4 address), ```mdst-addr6``` (multiple IPv6 remote gateway addresses), ```dst-port```, vd (virtual domain), ```interface```, and negate. 
-Remove any set filters.
 ```
 diagnose vpn ike log filter clear
 ```
+Remove any set filters.
