@@ -23,7 +23,7 @@ Displays the current IPsec Security Association (SA) information for all active 
 diagnose vpn tunnel list name <tunnel name>
 ```
 Shows SA information for a specific tunnel.<br />
-The output includes details like the **tunnel name**, **versions**, **serial numbers**, **local** and **remote** gateways, **bound interface**, **mode**, **encapsulation**, options, proxy ID numbers, child SAs, reference counts, **last sent and received timestamps**, auto-discovery status, traffic statistics, **DPD information**, **NAT-T status**, and **SA details** such as SPIs, encryption and authentication algorithms, and key information. The ```npu_flag``` field indicates the **hardware offloading status** of the IPsec SAs.
+The output includes details like the tunnel name, versions, serial numbers, local and remote gateways, bound interface, mode, encapsulation, options, proxy ID numbers, child SAs, reference counts, last sent and received timestamps, auto-discovery status, traffic statistics, DPD information, NAT-T status, and SA details such as SPIs, encryption and authentication algorithms, and key information. The ```npu_flag``` field indicates the hardware offloading status of the IPsec SAs.
 ### IPsec Tunnel Details
 ```
 get vpn ipsec tunnel details
@@ -46,4 +46,11 @@ Closes a phase 1 connection and should be used with caution as clearing without 
 ```
 get vpn ipsec stats tunnel
 ```
-rovides global counters related to all active VPNs, including the total number of tunnels (static/DDNS, dynamic, manual), errors, and the total and up counts of selectors.
+Provides global counters related to all active VPNs, including the total number of tunnels (static/DDNS, dynamic, manual), errors, and the total and up counts of selectors.
+## Debug an IPsec VPN Connection
+The IKE daemon handles all IPsec connections. To enable real-time debug for IKE.
+```
+diagnose debug application ike <bitmask> 
+diagnose debug enable
+```
+A bitmask of -1 is recommended to enable all outputs, which includes DPD packets and negotiation information. Enabling timestamps with # diagnose debug console timestamp enable is also helpful. Remember to disable debug after troubleshooting using # diagnose debug application ike 0 and # diagnose debug disable or # diagnose debug reset to disable all debug applications.
