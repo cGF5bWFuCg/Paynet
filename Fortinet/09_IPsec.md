@@ -64,6 +64,7 @@ diagnose debug disable
 diagnose debug reset
 ```
 Remember to disable all debug applications after troubleshooting.
+#### Debug an IPsec VPN Connection
 ```
 diagnose debug enable
 diagnose debug disable
