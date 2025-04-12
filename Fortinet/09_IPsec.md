@@ -129,3 +129,17 @@ diagnose debug flow trace start <number_of_packets>
 diagnose debug enable
 ```
 The output shows the packet details, <ins>route lookups</ins>, <ins>firewall policy</ins> checks, and whether the <ins>traffic enters the IPsec interface for encryption</ins> or if it is dropped. You can filter the debug flow by <ins>source/destination IP addresses, protocols,</ins> and <ins>ports</ins>.
+### Capturing IKE Traffic
+```bash
+diagnose sniffer packet <interface> 'host <remote-gw> and udp port 500'
+```
+To capture IKE traffic (UDP port 500)
+```bash
+diagnose sniffer packet any 'host <remote-gw> and (udp port 500 or udp port 4500)'
+```
+If <ins>NAT-T</ins> is involved (using UDP port 4500)
+```bash
+diagnose sniffer packet any 'host <remote-gw> and esp'
+```
+To capture ESP traffic (IP protocol 50),
+### Common IPsec Problems
