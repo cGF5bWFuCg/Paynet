@@ -53,3 +53,23 @@ Here's a summary of the key differences between IKEv1 and IKEv2 based on your so
 | **Traffic Selector Flexibility** | Not supported | Supported |
 
 ## IKEv2 Exchange Process
+
+The IKEv2 exchange process is used to negotiate an IPsec tunnel. Unlike IKEv1, IKEv2 is a **reliable "request and response" protocol**. The initiator will retransmit a request until it gets a response or determines the IKE SA has failed. While IKEv1 has distinct phase 1 (6 packets) and phase 2 (3 packets) exchanges, **IKEv2's exchange is more flexible**, ranging from as few as four packets to potentially 30, depending on the authentication complexity. After the initial exchange, subsequent traffic triggers the **CREATE\_CHILD\_SA exchange**, which is similar to IKEv1's phase 2\. **IKEv2 does not have aggressive or main modes**.
+
+## IKEv2—A Request and Response Protocol
+
+As mentioned, IKEv2 operates as a **request and response protocol**. It involves **two initial phases of negotiation**:
+
+* **IKE\_SA\_INIT exchange**: This is the first round trip and negotiates the security settings for protecting subsequent IKE traffic and establishes initial keying material. It also enables DoS protection using a cookie mechanism. This exchange typically takes one round trip but can extend to two or three if the responder requests another key exchange or if DoS protection starts.  
+* **IKE\_AUTH exchange**: This is the final stage of the initial exchange and occurs after IKE\_SA\_INIT. It is protected by the algorithms and keys established in the first phase. During this phase, the peers exchange their identities (IDi and IDr) and provide proof of their identity (AUTH). When EAP is not used, it's a single request and response. A **piggyback child (IPsec) SA is usually negotiated** along with the IKEv2 SA during this exchange.
+
+Following these initial exchanges are later IKEv2 exchanges, including the **CREATE\_CHILD\_SA exchange** and the **Informational exchange**.
+
+## IKEv2 Negotiation Steps
+
+Although IKEv2 doesn't strictly use the terms "phase 1" and "phase 2," the FortiOS CLI and GUI often use this terminology for configuration. **Phase 1 settings configure the IKEv2 SA, while phase 2 settings configure the child (IPsec) SA**. The four main IKEv2 exchanges are:
+
+* **IKE\_SA\_INIT**: Negotiates security settings for IKE traffic and enables DoS protection.  
+* **IKE\_AUTH**: Performs mutual authentication, configures settings (like IP/mask, DNS), and can set up a piggyback child SA, negotiating IP flow and security settings for the IPsec SA.  
+* **CREATE\_CHILD\_SA**: Creates new child SAs or rekeys existing ones, and can also rekey the IKE SA.  
+* **INFORMATIONAL**: Conveys control messages, errors, or notifications between IKE endpoints after the initial exchanges.
