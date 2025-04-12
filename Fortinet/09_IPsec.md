@@ -104,10 +104,11 @@ diagnose vpn ipsec status
 ```
 ## IPsec Troubleshooting
 Troubleshooting IPsec involves a systematic approach to identify where the connection process fails. Key steps include: 
-  + Verifying configurations on both peers, 
-  + Checking the internet connection, 
-  + Examining debug outputs,
-  + Ensuring traffic matches the defined selectors and firewall policies.<br /> 
+ + Verifying configurations on both peers, 
+ + Checking the internet connection, 
+ + Examining debug outputs,
+ + Ensuring traffic matches the defined selectors and firewall policies.<br /> 
+
 Common problems include:
  + Encryption mismatches, 
  + Authentication failures (e.g., pre-shared key mismatch), 
