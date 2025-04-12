@@ -123,9 +123,9 @@ Common problems include:
 ```bash
 diagnose debug flow
 ```
-The debug flow tool is crucial for troubleshooting traffic that is not passing through an established VPN tunne
+The debug flow tool is crucial for troubleshooting traffic that is not passing through an <ins>established</ins> VPN tunne
 ```bash
 diagnose debug flow trace start <number_of_packets>
 diagnose debug enable
 ```
-The output shows the packet details, route lookups, firewall policy checks, and whether the traffic enters the IPsec interface for encryption or if it is dropped. You can filter the debug flow by source/destination IP addresses, protocols, and ports.
+The output shows the packet details, <ins>route lookups</ins>, <ins>firewall policy</ins> checks, and whether the <ins>traffic enters the IPsec interface for encryption</ins> or if it is dropped. You can filter the debug flow by <ins>source/destination IP addresses, protocols,</ins> and <ins>ports</ins>.
