@@ -85,3 +85,13 @@ diagnose debug console timestamp enable
 diagnose debug disable
 ```
 It displays messages exchanged between peers, negotiated settings, and any errors encountered. The bitmask in the # diagnose debug application ike <bitmask> command controls the level of detail in the output, with -1 enabling the most verbose logging, including major errors (1), configuration changes (2), connection attempts (4), negotiation messages (8), NAT-T messages (16), DPD messages (32), encryption and decryption keys (64), and encrypted traffic payload (128).
+## IPsec Traffic and Hardware Offload
+```
+config vpn ipsec phase1-interface
+  edit <tunnel_name>
+    set npu-offload enable | disable
+  next
+end
+```
+You can enable or disable NPU offload for a specific IPsec tunnel interface using the CLI command.
+
