@@ -1,4 +1,4 @@
-# 06 - IPsec
+# 09 - IPsec
 ## Monitor IPsec VPN Tunnels
 ```
 get vpn ipsec tunnel summary
@@ -64,7 +64,7 @@ diagnose debug disable
 diagnose debug reset
 ```
 Remember to disable all debug applications after troubleshooting.
-## IKE Filter Options
+### IKE Filter Options
 ```
 diagnose vpn ike log filter
 ```
@@ -73,7 +73,7 @@ Allows you to set filters for the IKE real-time debug output to focus on relevan
 diagnose vpn ike log filter clear
 ```
 Remove any set filters.
-## IKE Real-Time Debug
+### IKE Real-Time Debug
 ```
 diagnose debug enable
 diagnose debug disable
@@ -85,3 +85,16 @@ diagnose debug console timestamp enable
 diagnose debug disable
 ```
 It displays messages exchanged between peers, negotiated settings, and any errors encountered. The bitmask in the # diagnose debug application ike <bitmask> command controls the level of detail in the output, with -1 enabling the most verbose logging, including major errors (1), configuration changes (2), connection attempts (4), negotiation messages (8), NAT-T messages (16), DPD messages (32), encryption and decryption keys (64), and encrypted traffic payload (128).
+## IPsec Traffic and Hardware Offload
+```bash
+config vpn ipsec phase1-interface
+  edit <tunnel_name>
+    set npu-offload enable | disable
+  next
+end
+```
+You can enable or disable NPU offload for a specific IPsec tunnel interface using the CLI command.
+```bash
+diagnose vpn tunnel list name <tunnel name>
+```
+Each IPsec SA has an `npu_flag` field indicating its offloading status. The npu_flag values can indicate if <ins>both inbound and outbound SAs</ins> are loaded to the <ins>kernel</ins> `(00)`, if only the <ins>outbound SA</ins> is copied to the <ins>NPU</ins> `(01)`, if only the <ins>inbound SA</ins> is copied to the <ins>NPU</ins> `(02)`, or if <ins>both</ins> are copied to the <ins>NPU</ins> `(03)`. The session table also includes this field for IPsec traffic.
