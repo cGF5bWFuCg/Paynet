@@ -73,3 +73,43 @@ Although IKEv2 doesn't strictly use the terms "phase 1" and "phase 2," the Forti
 * **IKE\_AUTH**: Performs mutual authentication, configures settings (like IP/mask, DNS), and can set up a piggyback child SA, negotiating IP flow and security settings for the IPsec SA.  
 * **CREATE\_CHILD\_SA**: Creates new child SAs or rekeys existing ones, and can also rekey the IKE SA.  
 * **INFORMATIONAL**: Conveys control messages, errors, or notifications between IKE endpoints after the initial exchanges.
+
+# Monitor and Debug IKEv2
+
+The commands used to **monitor, debug, and troubleshoot IKEv2 are the same as those used for IKEv1**.
+```bash
+diagnose vpn ike gateway list
+```
+Provides details about IKE gateways (tunnels).
+```bash
+diagnose vpn ike gateway clear \<name\>
+```
+Closes a phase 1 connection (IKE SA), which can be used to force renegotiation during troubleshooting. Use with caution.  
+```bash
+diagnose vpn tunnel list
+```
+Displays current IPsec SA information for all active tunnels.  
+```bash
+diagnose vpn ike log filter
+```
+Allows filtering the IKE debug output based on various parameters like remote gateway IP address (`rem-addr4`). You can list the current filter using `diagnose vpn ike log filter list` and clear it with `diagnose vpn ike log filter clear`.  
+```bash
+diagnose debug application ike <bitmask>
+```
+Enables real-time IKE debug output. A bitmask of **\-1 enables all outputs**.  
+```bash
+diagnose debug enable
+```
+Must be enabled to see debug output.  
+```bash
+diagnose debug console timestamp enable
+```
+Enables timestamps in the debug output, useful for troubleshooting.  
+```bash
+diagnose debug disable
+```
+Disables debug output.  
+```bash
+diagnose debug reset
+```
+Disables all diagnose debug applications.
