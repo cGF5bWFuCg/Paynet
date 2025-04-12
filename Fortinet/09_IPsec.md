@@ -138,10 +138,11 @@ To capture IKE traffic (UDP port 500)
 diagnose sniffer packet any 'host <remote-gw> and (udp port 500 or udp port 4500)'
 ```
 If <ins>NAT-T</ins> is involved (using UDP port 4500)
+
 ```bash
 diagnose sniffer packet any 'host <remote-gw> and esp'
 ```
-To capture ESP traffic (IP protocol 50),
+To capture ESP traffic (IP protocol 50)
 ### Common IPsec Problems
 | Problem                                      | Output of IKE debug                                               | Common causes                                | Common solutions                                              |
 |----------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------|----------------------------------------------------------------|
@@ -151,3 +152,4 @@ To capture ESP traffic (IP protocol 50),
 | Tunnel is up but traffic doesn’t pass through it | Error in debug flow: no matching IPsec selector, drop             | Quick mode selectors mismatch                 | Verify quick mode selectors are correct                        |
 |                                              |                                                                   | NAT is enabled                                | Disable NAT on the VPN firewall policy                         |
 |                                              | Routing issue                                                     | Route missing or pointing to wrong device     | Verify route is correctly defined                              |
+
