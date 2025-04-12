@@ -94,7 +94,8 @@ config vpn ipsec phase1-interface
 end
 ```
 You can enable or disable NPU offload for a specific IPsec tunnel interface using the CLI command.
-```
+>
+```bash
 diagnose vpn tunnel list name <tunnel name>
 ```
 Each IPsec SA has an ```npu_flag``` field indicating its offloading status. The _npu_flag_ values can indicate if ==both inbound and outbound SAs== are loaded to the ==kernel== ```(00)```, if only the ==outbound SA== is copied to the ==NPU== ```(01)```, if only the ==inbound SA== is copied to the ==NPU== ```(02)```, or if both are copied to the NPU (03). The session table also includes this field for IPsec traffic.
