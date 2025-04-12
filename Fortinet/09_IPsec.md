@@ -118,3 +118,14 @@ Common problems include:
  + <ins>Quick mode</ins> selector mismatches, 
  + <ins>Routing</ins> issues, 
  + Firewall <ins>policy</ins> misconfigurations.
+
+### Debug Flow of Tunnel Traffic
+```bash
+diagnose debug flow
+```
+The debug flow tool is crucial for troubleshooting traffic that is not passing through an established VPN tunne
+```bash
+diagnose debug flow trace start <number_of_packets>
+diagnose debug enable
+```
+The output shows the packet details, route lookups, firewall policy checks, and whether the traffic enters the IPsec interface for encryption or if it is dropped. You can filter the debug flow by source/destination IP addresses, protocols, and ports.
