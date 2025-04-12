@@ -102,3 +102,11 @@ Each IPsec SA has an `npu_flag` field indicating its offloading status. The npu_
 ```bash
 diagnose vpn ipsec status
 ```
+## IPsec Troubleshooting
+Troubleshooting IPsec involves a systematic approach to identify where the connection process fails. 
+Key steps include 
+  + Verifying configurations on both peers, 
+  + Checking the internet connection, 
+  + Examining debug outputs,
+  + Ensuring traffic matches the defined selectors and firewall policies. 
+Common problems include encryption mismatches, authentication failures (e.g., pre-shared key mismatch), incorrect phase 1 or 2 settings, NAT interference, blocked ESP packets by intermediate devices, quick mode selector mismatches, routing issues, and firewall policy misconfigurations.
