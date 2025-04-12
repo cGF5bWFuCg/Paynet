@@ -94,6 +94,7 @@ config vpn ipsec phase1-interface
 end
 ```
 You can enable or disable NPU offload for a specific IPsec tunnel interface using the CLI command.
+🚨 Important: Do not delete this file!
 ```bash
 diagnose vpn tunnel list name <tunnel name>
 ```
