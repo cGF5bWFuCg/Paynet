@@ -64,7 +64,7 @@ diagnose debug disable
 diagnose debug reset
 ```
 Remember to disable all debug applications after troubleshooting.
-## IKE Filter Options
+### IKE Filter Options
 ```
 diagnose vpn ike log filter
 ```
@@ -73,7 +73,7 @@ Allows you to set filters for the IKE real-time debug output to focus on relevan
 diagnose vpn ike log filter clear
 ```
 Remove any set filters.
-## IKE Real-Time Debug
+### IKE Real-Time Debug
 ```
 diagnose debug enable
 diagnose debug disable
