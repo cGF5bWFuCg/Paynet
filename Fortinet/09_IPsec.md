@@ -143,3 +143,11 @@ diagnose sniffer packet any 'host <remote-gw> and esp'
 ```
 To capture ESP traffic (IP protocol 50),
 ### Common IPsec Problems
+| Problem                                      | Output of IKE debug                                               | Common causes                                | Common solutions                                              |
+|----------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------|----------------------------------------------------------------|
+| Tunnel is not coming up                      | Error: negotiation failure                                        | IPsec configuration mismatch                  | Verify phase 1 and phase 2 configurations between both peers   |
+|                                              | Error: no SA proposal chosen                                      | IPsec configuration mismatch                  | Verify phase 1 and phase 2 configurations between both peers   |
+| Tunnel is unstable                           | DPD packet lost                                                   | ISP issue                                     | Check internet connection                                     |
+| Tunnel is up but traffic doesn’t pass through it | Error in debug flow: no matching IPsec selector, drop             | Quick mode selectors mismatch                 | Verify quick mode selectors are correct                        |
+|                                              |                                                                   | NAT is enabled                                | Disable NAT on the VPN firewall policy                         |
+|                                              | Routing issue                                                     | Route missing or pointing to wrong device     | Verify route is correctly defined                              |
