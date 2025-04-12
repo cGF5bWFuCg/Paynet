@@ -39,6 +39,10 @@ Transitioning to IKEv2 offers several advantages:
 * **Quick crash detection**: IKEv2 includes a quick crash detection method (RFC 6290\) for interoperability with other vendors.  
 * **Overlay network ID support**: IKEv2 supports setups with an overlay network ID.  
 * **NAT-T as a built-in feature**: **NAT-T is natively supported in IKEv2**, unlike IKEv1 where it was added as an extension.
+## Summary of Versions
+
+Here's a summary of the key differences between IKEv1 and IKEv2 based on your source:
+
 | Feature | IKEv1 | IKEv2 |
 | ----- | ----- | ----- |
 | **Exchange Modes** | Main (9 messages), Aggressive (6 messages) | One procedure only (4 messages for one child SA) |
@@ -47,3 +51,5 @@ Transitioning to IKEv2 offers several advantages:
 | **Reliability** | Unreliable—messages are not acknowledged | Reliable—messages are acknowledged |
 | **Dial-up Phase 1 Matching by ID** | Peer ID, Peer ID \+ aggressive mode \+ PSK, Peer ID \+ main mode \+ certificate signature | Peer ID, Network ID |
 | **Traffic Selector Flexibility** | Not supported | Supported |
+
+## IKEv2 Exchange Process
