@@ -152,4 +152,3 @@ To capture ESP traffic (IP protocol 50)
 | Tunnel is up but traffic doesn’t pass through it | Error in debug flow: no matching IPsec selector, drop             | Quick mode selectors mismatch                 | Verify quick mode selectors are correct                        |
 |                                              |                                                                   | NAT is enabled                                | Disable NAT on the VPN firewall policy                         |
 |                                              | Routing issue                                                     | Route missing or pointing to wrong device     | Verify route is correctly defined                              |
-
