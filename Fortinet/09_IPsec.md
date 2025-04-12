@@ -97,4 +97,4 @@ You can enable or disable NPU offload for a specific IPsec tunnel interface usin
 ```
 diagnose vpn tunnel list name <tunnel name>
 ```
-Each IPsec SA has an ```npu_flag``` field indicating its offloading status. The _npu_flag_ values can indicate if _both inbound and outbound SAs are loaded to the kernel_ ```(00)```, if only the _outbound SA is copied to the NPU_ ```(01)```, if only the _inbound SA is copied to the NPU_ ```(02)```, or if both are copied to the NPU (03). The session table also includes this field for IPsec traffic.
+Each IPsec SA has an ```npu_flag``` field indicating its offloading status. The _npu_flag_ values can indicate if ==both inbound and outbound SAs== are loaded to the ==kernel== ```(00)```, if only the ==outbound SA== is copied to the ==NPU== ```(01)```, if only the ==inbound SA== is copied to the ==NPU== ```(02)```, or if both are copied to the NPU (03). The session table also includes this field for IPsec traffic.
