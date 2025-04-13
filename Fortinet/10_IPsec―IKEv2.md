@@ -81,9 +81,8 @@ The commands used to **monitor, debug, and troubleshoot IKEv2 are the same as th
 diagnose vpn ike gateway list
 ```
 Provides details about IKE gateways (tunnels).
-```bash
 ⭕🔴
-
+```bash
 diagnose vpn ike gateway clear <name>
 ```
 Closes a phase 1 connection (IKE SA), which can be used to force renegotiation during troubleshooting. Use with caution.  
