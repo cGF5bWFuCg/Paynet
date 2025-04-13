@@ -80,7 +80,7 @@ The commands used to **monitor, debug, and troubleshoot IKEv2 are the same as th
 ```bash
 diagnose vpn ike gateway list
 ```
-Provides details about IKE gateways (tunnels).
+Provides details about IKE gateways (tunnels).<br />
 ⭕🔴
 ```bash
 diagnose vpn ike gateway clear <name>
