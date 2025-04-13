@@ -82,7 +82,7 @@ diagnose vpn ike gateway list
 ```
 Provides details about IKE gateways (tunnels).
 ```bash
-❗
+⭕❗⭕❗⭕❗⭕❗⭕❗⭕
 
 diagnose vpn ike gateway clear <name>
 ```
