@@ -56,7 +56,7 @@ diagnose ip router bgp level <level>
 ```
 **Sets the level of detail for the BGP debug output** (e.g., info).
 ```bash
-diagnose debug enable `|` disable
+diagnose debug enable | disable
 ```
 **Enables or disables the general debug output**. Remember that `diagnose debug reset` does not stop BGP real-time debug.
 ```
