@@ -47,7 +47,10 @@ get router info bgp neighbors <neighbor_ip> route
 
 For troubleshooting, you can use:
 
-*   `diagnose ip router bgp all enable`/`disable`: **Enables or disables real-time debugging output for all BGP processes**.
+```bash
+diagnose ip router bgp all enable`/`disable
+```
+**Enables or disables real-time debugging output for all BGP processes**.
 *   `diagnose ip router bgp level <level>`: **Sets the level of detail for the BGP debug output** (e.g., info).
 *   `diagnose debug enable`/`disable`: **Enables or disables the general debug output**. Remember that `diagnose debug reset` does not stop BGP real-time debug.
 *   `execute router clear bgp all`/`<neighbor_ip>`/`as <as_number>` etc.: **Used to reset BGP sessions**. Using `soft [in|out]` performs a soft reset, forcing the exchange of complete BGP routing tables without tearing down the TCP connection.
