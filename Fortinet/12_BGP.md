@@ -72,3 +72,43 @@ config router bgp
     set ebgp-multipath enable
 end
 ```
+## Loopback Interfaces as BGP Source
++ Using a loopback interface as the BGP source IP address.
++ Must explicitly configure the loopback interface in the same way as the source interface.
++ Must enable multihop.
++ Since the BGP session on TCP port 179 might be traveling through a physical interface, you must configure a corresponding firewall policy to allow traffic between the loopback interface and the physical interface of the BGP peers.
+```bash
+config router bgp
+    set as 65100
+    set router-id 172.16.1.254
+    config neighbor
+        edit 100.64.1.254
+            set remote-as 65101
+            set update-source Loopback_Interface
+            set ebgp-enforce-multihop enable
+        next
+    end
+end
+```
+## The `neighbor-group` Command
+The neighbor-group command in BGP allows you to apply common settings to 
+a group of BGP peers.
+```bash
+config router bgp
+    set as 65100
+    set router-id 172.16.1.254
+    set ibgp-multipath enable
+    config neighbor-group
+        edit SpokeISP1
+            set interface ISP1
+            set remote-as 65100
+        next
+    end
+    config neighbor-range
+        edit 1
+            set prefix 10.1.0.0 255.255.255.0
+            set neighbor-group SpokeISP1
+        next
+    end
+end
+```
