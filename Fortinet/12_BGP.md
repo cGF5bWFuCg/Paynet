@@ -151,3 +151,19 @@ config router bfd
     end
 end
 ```
+## The graceful-restart Command
+⭕🔴
+As the BGP router daemon process is only running on the primary unit, BGP peering needs to be reestablished upon HA failover. In a cluster, the FortiGate graceful-restart command allows BGP routes to remain in the routing tables. This is particularly important during a reboot or an upgrade maintenance window to avoid potential new BGP convergence and traffic interruption.
+```bash
+config router bgp
+    set as 65100
+    set graceful-restart enable
+    set router-id 172.16.1.254
+    config neighbor
+        edit 100.64.1.254
+            set capability-graceful-restart enable
+            set remote-as 200
+    next
+    end
+end
+```
