@@ -59,7 +59,15 @@ diagnose ip router bgp level <level>
 diagnose debug enable | disable
 ```
 **Enables or disables the general debug output**. Remember that `diagnose debug reset` does not stop BGP real-time debug.
-```
+```bash
 execute router clear bgp all | <neighbor_ip> | as <as_number>
 ```
 **Used to reset BGP sessions**. Using `soft [in|out]` performs a soft reset, forcing the exchange of complete BGP routing tables without tearing down the TCP connection.
+## Configure ECMP With BGP Routes
+If ECMP is enabled, FortiGate can share traffic among up to 10 of these BGP routes.
+
+```bash
+config router bgp
+    set ebgp-multipath enable
+end
+```
