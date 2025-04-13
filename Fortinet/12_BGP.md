@@ -67,6 +67,7 @@ execute router clear bgp all | <neighbor_ip> | as <as_number>
 If ECMP is enabled, FortiGate can share traffic among up to 10 of these BGP routes.
 
 ```bash
+⚠️
 config router bgp
     set ebgp-multipath enable
 end
