@@ -111,3 +111,43 @@ config router bgp
     end
 end
 ```
+## Route Reflectors
+Route Reflectors (RRs) help to reduce the need for a full mesh of IBGP peerings within an Autonomous System (AS).
+```bash
+config router bgp
+    config neighbor
+        edit 100.64.1.254
+            set next-hop-self enable
+            set route-reflector-client enable
+        next
+    end
+end
+```
+## BFD Parameter
+Bidirectional Forwarding Detection (BFD) is a low-overhead protocol used to quickly detect faults in the forwarding path between two adjacent routers
+```bash
+get router info bfd neighbor
+```
+Check the BFD negotiation status using the command.
+```bash
+config router bgp
+    config neighbor
+        edit 100.64.1.254
+            set bfd enable
+            set ebgp-enforce-multihop enable
+        next
+    end
+end
+```
+```bash
+config router bfd
+    config multihop-template
+        edit 1
+            set src 100.64.2.0 255.255.255.0
+            set dst 100.64.1.0 255.255.255.0
+            set auth-mode md5
+            set md5-key password
+        next
+    end
+end
+```
