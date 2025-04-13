@@ -12,6 +12,7 @@ config router bgp
     end
 end
 ```
+To verify redistribution
 ```bash
 get router info bgp network
 get router info bgp neighbors
