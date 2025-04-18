@@ -23,7 +23,7 @@ diag debug flow trace start 10
 ```bash
 diag firewall iprope list 00004320 
 ```
-> `diag firewall iprope list` — This diagnostic command shows the internal IPROPE handler table (how traffic is matched and handled in FortiOS).
+> `diag firewall iprope list` — This diagnostic command shows the internal IPROPE handler table (how traffic is matched and handled in FortiOS).<br />
 > `00004320` — This is the IPROPE index or handler ID. Each flow or type of traffic gets its own IPROPE handler.
 
 ### Disable and Reset the Debug Flow
