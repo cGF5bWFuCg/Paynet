@@ -58,3 +58,11 @@ diag sys kill 11 <process_id>
 ```bash
 diag debug crachlog read
 ```
+## Sessions, Traffic Flow, and Networking
+### Analyze the Session Table
+```bash
+diag sys session filter clear
+diag sys session filter dport 22
+diag sys session filter dst 10.1.10.254
+diag sys session list
+```
