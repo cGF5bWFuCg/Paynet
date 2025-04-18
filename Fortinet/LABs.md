@@ -66,3 +66,22 @@ diag sys session filter dport 22
 diag sys session filter dst 10.1.10.254
 diag sys session list
 ```
+### Troubleshooting Connectivity Issues
+```bash
+diag sniffer packet any "port 23 and host 10.1.10.1" 4
+diag sniffer packet any "port 80 and host 10.1.10.1" 4
+diag sniffer packet any "icmp and host 10.1.10.1" 4
+```
+```bash
+diag sys session filter clear
+diag sys session filter src 10.1.10.1
+diag sys session filter dport <port_number>
+diag sys session list
+```
+```bash
+diag sys session filter clear
+diag sys session filter dport <port_number>
+diag sys session filter addr 10.1.10.1
+diag sys session filter start 10.1.10.1
+diag sys session lis
+```
