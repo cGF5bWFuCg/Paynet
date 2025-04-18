@@ -45,4 +45,16 @@ diag hardware sysinfo shm
 diag hardware sysinfo slab
 diag hardware sysinfo conserve
 ```
-### Anylting 
+### Analyzing a Crach Log 
+```bash
+diag sys top
+```
+The processe that ate running with a high priority are with a < .
+### Kill Process
+```bash
+diag sys kill 11 <process_id>
+```
+### Check the Crash Log
+```bash
+diag debug crachlog read
+```
