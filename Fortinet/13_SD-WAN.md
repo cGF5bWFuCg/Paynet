@@ -20,20 +20,17 @@ diagnose sys sdwan health-check status
 ## SD-WAN Rules
 
 + Instruct FortiGate how to <u>**steer network traffic**</u> across different WAN links.
-+ Service that is used to control the **<u>ath Selection</u>** process in the SD-WAN architecture.
++ Service that is used to control the **<u>Path Selection</u>** process in the SD-WAN architecture.
 + Unlike firewall policies which determine which traffic is allowed.
-+ They use link quality measured by SD-WAN **<u>health checks</u>** to steer traffic through the <u>best-performing</u> link based on <u>metrics</u> like <u>latency, packet loss, or link utilization</u>.
++ They use link quality measured by SD-WAN **<u>health checks</u>** to steer traffic through the **<u>best-performing</u>** link based on **<u>metrics</u>** like **<u>latency, packet loss, or link utilization</u>**.
 + SD-WAN rules are essentially **<u>policy routes</u>.**
++ If it **<u>does not match</u>** any of the rules, there is an implicit rule that the traffic will match. When traffic matches an implicit rule, the **<u>traffic will be forwarded based on the firewall's own routing</u>**.
 
 ####################
 *   **Configuration:**
-    *   SD-WAN rules are configured in the **"SD-WAN Rules"** section of the FortiGate GUI (under Network > SD-WAN > SD-WAN Rules) or via the CLI under `config system sdwan config service`.
-    *   Configuration involves two main sections:
-        *   **Matching Traffic Criteria:** Defining the pattern, ISDB (Internet Service Database), or application to match based on source IP address, firewall user/group, destination IP address, internet service, application/category, source interface, and source/destination ports.
-        *   **Forward Policy:** Selecting preferred egress members (physical or logical interfaces participating in SD-WAN) or zones (logical groupings of members) and the strategy for selecting the outgoing interface.
-    *   When configuring, administrators can drag and drop to organize the interface preference order.
-    *   On FortiManager, SD-WAN rules can be configured within SD-WAN templates for centralized management.
-
+```bash
+config system sdwan config service
+```
 *   **Evaluation Process:**
     *   SD-WAN rules are **evaluated in descending order**, from top to bottom, and the **first rule that matches the traffic is applied**. This is similar to how firewall policies are evaluated.
     *   If a packet matches a rule's criteria, FortiGate looks for acceptable members in the outgoing interface list of that rule. This list is sorted by preference based on the configured strategy.
