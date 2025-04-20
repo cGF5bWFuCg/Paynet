@@ -24,9 +24,8 @@ diagnose sys sdwan health-check status
 + Unlike firewall policies which determine which traffic is allowed.
 + They use link quality measured by SD-WAN **<ins>health checks</ins>** to steer traffic through the **<ins>best-performing</ins>** link based on **<ins>metrics</ins>** like **<ins>latency, packet loss, or link utilization</ins>**.
 + SD-WAN rules are essentially **<ins>policy routes</ins>.**
-+ If it **<ins>does not match</ins>** any of the rules, there is an implicit rule that the traffic will match. When traffic matches an implicit rule, the **<ins>traffic will be forwarded based on the firewall's own routing</ins>**.
++ If it **<ins>does not match</ins>** any of the rules, there is an implicit rule that the traffic will match. When traffic matches an implicit rule, the traffic will be **<ins>forwarded based on the firewall's own routing</ins>**.
 
-####################
 *   **Configuration:**
 ```bash
 config system sdwan config service
