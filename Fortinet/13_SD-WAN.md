@@ -19,12 +19,12 @@ diagnose sys sdwan health-check status
 ```
 ## SD-WAN Rules
 
-+ Instruct FortiGate how to <u>**steer network traffic**</u> across different WAN links.
-+ Service that is used to control the **<u>Path Selection</u>** process in the SD-WAN architecture.
++ Instruct FortiGate how to <ins>**steer network traffic**</ins> across different WAN links.
++ Service that is used to control the **<ins>Path Selection</ins>** process in the SD-WAN architecture.
 + Unlike firewall policies which determine which traffic is allowed.
-+ They use link quality measured by SD-WAN **<u>health checks</u>** to steer traffic through the **<u>best-performing</u>** link based on **<u>metrics</u>** like **<u>latency, packet loss, or link utilization</u>**.
-+ SD-WAN rules are essentially **<u>policy routes</u>.**
-+ If it **<u>does not match</u>** any of the rules, there is an implicit rule that the traffic will match. When traffic matches an implicit rule, the **<ins>traffic will be forwarded based on the firewall's own routing</ins>**.
++ They use link quality measured by SD-WAN **<ins>health checks</ins>** to steer traffic through the **<ins>best-performing</ins>** link based on **<ins>metrics</ins>** like **<ins>latency, packet loss, or link utilization</ins>**.
++ SD-WAN rules are essentially **<ins>policy routes</ins>.**
++ If it **<ins>does not match</ins>** any of the rules, there is an implicit rule that the traffic will match. When traffic matches an implicit rule, the **<ins>traffic will be forwarded based on the firewall's own routing</ins>**.
 
 ####################
 *   **Configuration:**
