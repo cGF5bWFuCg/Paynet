@@ -248,6 +248,7 @@ Refers to the **metric used by the "Best Quality" SD-WAN rule strategy to determ
 `Latency:  150 ms` | `Jitter:  30 ms` | `Packet loss:  1 %`
 ##### Office 365
 `Latency:  250 ms` | `Jitter:  50 ms` | `Packet loss:  5 %`
+
 ---
 ```bash
 show sys sdwan
