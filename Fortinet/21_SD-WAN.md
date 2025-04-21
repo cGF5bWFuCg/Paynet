@@ -83,13 +83,6 @@ These values are great for configuring **Fortinet SD-WAN Performance SLAs** to e
 
 ### **Application-Specific SLA Targets**
 
-| Application     | Latency | Jitter | Packet Loss |
-|-----------------|---------|--------|--------------|
-| **VoIP (e.g. SIP)**      | < 100 ms | < 20 ms | < 1%        |
-| **Video Conferencing**   | < 150 ms | < 30 ms | < 1%        |
-| **Web/Cloud Apps**       | < 250 ms | < 50 ms | < 2%        |
-| **Critical Apps (ERP, CRM)** | < 100 ms | < 30 ms | < 1%     |
-
 | **Application Category**    | **SLA Sensitivity** | **Latency (ms)**  | **Jitter (ms)** | **Packet Loss (%)** | **General Bandwidth Needs** |
 |-----------------------------|---------------------|-------------------|-----------------|---------------------|-----------------------------|
 | **Real-Time Communication**  | **Very High**        | ≤ 100             | ≤ 20            | ≤ 0.5%              | High (100 Kbps to several Mbps) |
