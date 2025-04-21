@@ -243,3 +243,11 @@ Refers to the **metric used by the "Best Quality" SD-WAN rule strategy to determ
     *   **Outbandwidth (egress)**: FortiGate prefers the member with the **most available egress bandwidth**.
     *   **Bibandwidth (bidirectional)**: FortiGate prefers the member with the **most available combined ingress and egress bandwidth**. The available bandwidth is based on the interface settings (`estimated-upstream-bandwidth` and `estimated-downstream-bandwidth`) and current usage; if these settings are not defined, the physical interface speed is used.
 *   **Custom-profile-1**: This option allows for a **weight-based calculation** of a **link quality index** using **latency, jitter, packet loss, and bibandwidth**. You can assign weights to each metric to influence the index, and the member with the **lowest link quality index** is preferred. You can assign a weight of 0 to ignore a specific metric in the calculation.
+---
+#### Note
+##### General web traffic
+`Latency:  250 ms` | `Jitter:  50 ms` | `Packet loss:  2 %`
+##### Media (example: video, IP telephony)
+`Latency:  150 ms` | `Jitter:  30 ms` | `Packet loss:  1 %`
+##### Office 365
+`Latency:  250 ms` | `Jitter:  50 ms` | `Packet loss:  5 %`
