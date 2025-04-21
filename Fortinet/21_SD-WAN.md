@@ -80,7 +80,7 @@ While configuring them is **<ins>optional**</ins>, it is recommended to ensure t
 Absolutely! Here's a comprehensive and realistic **SLA target values table** for SD-WAN, specifically tailored to key applications like **Microsoft 365 (including Outlook and Teams)**, **general internet browsing**, and **collaboration tools like Webex**.
 
 These values are great for configuring **Fortinet SD-WAN Performance SLAs** to ensure optimal application performance and user experience.
-
+---
 ### **Application-Specific SLA Targets**
 
 | **Application Category**    | **SLA Sensitivity** | **Latency (ms)**  | **Jitter (ms)** | **Packet Loss (%)** | **General Bandwidth Needs** |
