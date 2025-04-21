@@ -90,20 +90,18 @@ These values are great for configuring **Fortinet SD-WAN Performance SLAs** to e
 | **Web/Cloud Apps**       | < 250 ms | < 50 ms | < 2%        |
 | **Critical Apps (ERP, CRM)** | < 100 ms | < 30 ms | < 1%     |
 
-### **Application Categories with Examples**
-
-| **Category**               | **Description**                                                                 | **Example Applications**                                  | **SLA Sensitivity**      |
-|---------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------|--------------------------|
-| **Real-Time Communication** | Requires low latency and jitter for seamless experience                        | MS Teams (Audio/Video), Webex, Zoom, VoIP Calls            | Very High                |
-| **Collaboration Tools**   | Used for team collaboration, may include chat, screen share, and file sharing   | Microsoft Teams (Chat, Share), Slack, Webex Teams          | High                    |
-| **Email and Messaging**   | Email platforms, more tolerant to network delay                                 | Microsoft Outlook, Gmail, Exchange Online                  | Moderate                |
-| **Office Productivity**   | Cloud-based productivity tools                                                  | Microsoft 365 (Word, Excel, PowerPoint, OneDrive)          | Moderate                |
-| **Web Browsing**          | General internet use                                                            | Chrome, Edge, Firefox, Intranet Portals                    | Low to Moderate         |
-| **Cloud/SaaS Applications**| Hosted on cloud, varies in criticality                                          | Salesforce, ServiceNow, Google Workspace                   | High (for real-time apps) |
-| **File Transfer and Backup** | Large data movement, sensitive to throughput and loss                          | Dropbox, OneDrive Sync, Google Drive, FTP/SFTP             | Low to Moderate          |
-| **Video Streaming**       | Continuous media delivery                                                       | YouTube, Vimeo, internal training videos                   | Moderate                 |
-| **ERP/CRM Systems**       | Business-critical tools hosted locally or on cloud                              | SAP, Oracle NetSuite, Dynamics 365                         | High                    |
-| **IT and Security Services** | Backend services like DNS, AD, antivirus updates                              | DNS Servers, Microsoft Update, Antivirus Traffic           | Low                     |
+| **Application Category**    | **SLA Sensitivity** | **Latency (ms)**  | **Jitter (ms)** | **Packet Loss (%)** | **General Bandwidth Needs** |
+|-----------------------------|---------------------|-------------------|-----------------|---------------------|-----------------------------|
+| **Real-Time Communication**  | **Very High**        | ≤ 100             | ≤ 20            | ≤ 0.5%              | High (100 Kbps to several Mbps) |
+| **Collaboration Tools**      | **High**             | ≤ 150             | ≤ 30            | ≤ 1%                | Medium (200 Kbps to 2 Mbps)  |
+| **Email and Messaging**      | **Moderate**         | ≤ 150             | ≤ 30            | ≤ 1%                | Low (50-250 Kbps per user)  |
+| **Office Productivity**      | **Moderate**         | ≤ 150             | ≤ 30            | ≤ 1%                | Medium (500 Kbps to 2 Mbps) |
+| **Web Browsing**             | **Low to Moderate**  | ≤ 250             | ≤ 50            | ≤ 2%                | Low (100 Kbps to 512 Kbps) |
+| **Cloud/SaaS Applications**  | **High**             | ≤ 150             | ≤ 30            | ≤ 1%                | Medium (500 Kbps to 2 Mbps) |
+| **File Transfer and Backup** | **Moderate**         | ≤ 200             | ≤ 50            | ≤ 2%                | Low (500 Kbps to 2 Mbps)   |
+| **Video Streaming**          | **Moderate**         | ≤ 200             | ≤ 50            | ≤ 2%                | Low to Medium (500 Kbps to 1.5 Mbps) |
+| **ERP/CRM Systems**          | **High**             | ≤ 150             | ≤ 30            | ≤ 1%                | Medium to High (1–5 Mbps)   |
+| **IT and Security Services** | **Low**              | ≤ 300+            | ≤ 100+          | ≤ 10%               | Very Low (< 100 Kbps)       |
 ---
 *   **SLA Map**:
     ```bash
