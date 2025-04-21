@@ -5,10 +5,13 @@
 ## Network Quality Parameters
 **Congestion,** When we want to send a high volume of internal traffic through the WAN link, we will encounter congestion problems in the WAN link due to lack of bandwidth.
 
-**Delay** 
-+ **Transmission Delay,** Which is the time it takes to prepare a packet for transmission over the link.
-+ **Propagation Delay,** Which is the time it takes to transfer to a node.
-+ **Processing Delay,** Which is the amount of delay in processing information for transmission, and other types of delays, collectively known as Latency.
+**Delay** / **Latency** 
+Refers to the time it takes for data to travel from its source to its destination across a network. In networking, latency is typically measured in milliseconds (ms) and represents the delay between a user's action and the response from the network.
+
+- **Propagation Delay**: The time it takes for a signal to travel through the transmission medium (e.g., fiber optic cables).
+- **Transmission Delay**: The time required to push all the packet's bits onto the wire.
+- **Processing Delay**: The time routers and switches take to process packet headers.
+- **Queuing Delay**: The time a packet spends in routing queues due to congestion.
 
 **Jitter** is the variation in packet arrival time. It is one of the key performance metrics monitors to assess the quality of network links. Along with latency and packet loss, jitter is used to evaluate the health of SD-WAN members.
 
