@@ -151,10 +151,8 @@ config system sdwan
             set probe-timeout 1000             # 1000ms timeout
             set probe-count 5                  # Average last 5 probes
             set dscp 46                        # DSCP EF (Expedited Forwarding)
-
             set sla-fail-log-period 60         # Log failure every 60 seconds
             set sla-pass-log-period 300        # Log success every 300 seconds
-
             set link-cost-factor latency       # Adjust link cost based on latency
             set initial-state enable           # Members start in "alive" state
         next
@@ -209,7 +207,6 @@ Provides similar but more detailed information from the link monitor process.
 config system sdwan
     config health-check
         edit "NAME"
-
             set interval 5000                 # Send probe every 5 seconds
             set failtime 3                    # 3 consecutive failures to mark link dead
             set recoverytime 3                # 3 successful probes to mark it back alive
