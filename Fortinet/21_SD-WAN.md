@@ -164,8 +164,14 @@ Displays the status of IPv4 SD-WAN rules, including the health check used.
     *   The `service-sla-tie-break` setting in the SD-WAN member configuration allows for different tie-breaking methods when multiple members meet the SLA in "Lowest Cost (SLA)" rules, such as `cfg-order` (configuration order - default), `fib-best-match`, and `input-device`.
 
 *   **Troubleshooting Performance SLAs**:
-    *   Use the `diagnose sys sdwan health-check status` command to get a real-time overview of SLA status and metrics.
-    *   The `diagnose sys link-monitor interface` command provides similar but more detailed information from the link monitor process.
+    ```bash
+    diagnose sys sdwan health-check status
+    ``` 
+    Get a real-time overview of SLA status and metrics.
+    ```
+    diagnose sys link-monitor interface
+    ```
+    Provides similar but more detailed information from the link monitor process.
     *   Analyze SLA pass and fail logs in FortiAnalyzer if logging is enabled.
     *   Check the `sla_map` value to understand which SLA targets are being met.
 
