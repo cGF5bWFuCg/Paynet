@@ -260,3 +260,63 @@ set probe-count 5                  # Average last 5 probes
 diag sys sdwan health-check status
 diag sys link-monitor interface <INTERFACE>
 ```
+---
+# Troubleshooting and Redundancy Features
+## General-Purpose Troubleshooting Commands
+### General-purpose troubleshooting and monitoring commands useful in an SD-WAN context
+#### Collect traffic received and sent by the FortiGate device
+```bash
+diagnose sniffer packet
+```
+#### View how FortiGate handles a packet and decision taken
+```bash
+diagnose debug flow
+```
+#### Display established sessions
+```bash
+get system session list
+diagnose system session list
+```
+#### Route lookup commands
+```bash
+diagnose firewall proute list
+get router info routing-table all
+get router info routing-table database
+get router info kernel
+get router info bgp network
+```
+### SD-WAN-Specific Commands
+
+Review SD-WAN overall settings
+```bash
+get sys sdwan
+```
+Display SD-WAN members and zones configuration and status
+```bash
+diagnose sys sdwan member
+diagnose sys sdwan zone
+```
+Review health-check and link monitor status
+```bash
+diagnose sys sdwan health-check status
+diagnose sys link-monitor interface <interface_name>
+diagnose sys link-monitor-passive admin list
+diagnose sys link-monitor-passive admin list by-interface
+```
+Review rules status
+```bash
+diagnose sys sdwan service4
+```
+Some of the warning messages you can see are:
++ `service disabled caused by no destination` (no route to destination in the routing table)
++ `service disabled caused by no outgoing path` (all outgoing interfaces are down)
+```bash
+diagnose sys sdwan internet-service-app-ctrl-list
+```
+SLA logging
++ Activate: `sla-fail-log-period`=`10`, `sla-pass-log-period`=`20`
++ View performance SLA link status: `diagnose sys sdwan sla-log`
+```bash
+diagnose sys sdwan sla-log <SLA target> <index>
+diagnose sys sdwan intf-sla-log <interface>
+```
