@@ -144,7 +144,23 @@ Displays the status of IPv4 SD-WAN rules, including the health check used.
     *   **DSCP Code:** You can set a DSCP (Differentiated Services Code Point) value for health-check probes, which can be useful when monitoring links that prioritize traffic based on DSCP markings (e.g., some MPLS links).
     *   **Link Cost Factor:** For MOS SLAs, you can set the `link-cost-factor` to `mos`. For latency, there's a `link-cost-factor latency` setting.
     *   **Initial State:** Initially, all configured members are assigned the alive state.
+```bash
+config system sdwan
+    config health-check
+        edit "NAME"
+            set probe-timeout 1000             # 1000ms timeout
+            set probe-count 5                  # Average last 5 probes
+            set dscp 46                        # DSCP EF (Expedited Forwarding)
 
+            set sla-fail-log-period 60         # Log failure every 60 seconds
+            set sla-pass-log-period 300        # Log success every 300 seconds
+
+            set link-cost-factor latency       # Adjust link cost based on latency
+            set initial-state enable           # Members start in "alive" state
+        next
+    end
+end
+```
 *   **Mean Opinion Score (MOS)**:
     *   Used to measure the perceived quality of voice communication, taking into account latency, jitter, packet loss, and the codec.
     *   The MOS score ranges from 1 (poor) to 5 (very good).
@@ -157,22 +173,32 @@ Displays the status of IPv4 SD-WAN rules, including the health check used.
     *   On the spoke, you enable embedding measured health in probes (typically ICMP) using `set embed-measured-health enable`.
     *   On the hub, you set the `detect-mode` to `remote` in the Performance SLA configuration. You can also define priority for IKE routes based on whether the overlay is in SLA (`set priority-in-sla`) or out of SLA (`set priority-out-sla`).
     *   This method is useful with static routing or BGP, especially with loopback topologies, but not compatible with IKE option mode-cfg.
-
+```bash
+# Spoke
+set embed-measured-health enable
+## Makes the spoke send SLA metrics (loss, latency, jitter) in its tunnel return packets to the hub.
+# Hub
+set detect-mode remote         # Trust remote SLA info
+## The hub doesn’t probe itself — it reads embedded SLA metrics from the tunnel traffic.
+# Optional route preference tweaking
+set priority-in-sla 10         # Prefer if SLA is healthy
+set priority-out-sla 50        # Use lower priority if out of SLA
+```
 *   **Link Cost and Tie-breaking**:
     *   In "Lowest Cost (SLA)" rules, if multiple members meet the SLA targets, the **member cost** (configured for each member) is used as a tiebreaker (lower cost is preferred).
     *   If members have the same SLA status and cost, the **configuration priority (interface preference order)** is used as the next tiebreaker.
     *   The `service-sla-tie-break` setting in the SD-WAN member configuration allows for different tie-breaking methods when multiple members meet the SLA in "Lowest Cost (SLA)" rules, such as `cfg-order` (configuration order - default), `fib-best-match`, and `input-device`.
 
 *   **Troubleshooting Performance SLAs**:
-    ```bash
-    diagnose sys sdwan health-check status
-    ``` 
-    Get a real-time overview of SLA status and metrics.
-    ```
-    diagnose sys link-monitor interface
-    ```
-    Provides similar but more detailed information from the link monitor process.
-    *   Analyze SLA pass and fail logs in FortiAnalyzer if logging is enabled.
-    *   Check the `sla_map` value to understand which SLA targets are being met.
+    
+```bash
+diagnose sys sdwan health-check status
+```
+Get a real-time overview of SLA status and metrics.
+```bash
+diagnose sys link-monitor interface
+```
+Provides similar but more detailed information from the link monitor process.
 
-By configuring and monitoring Performance SLAs, administrators can ensure that SD-WAN traffic is steered across links that meet the required performance criteria for various applications, leading to improved user experience and network reliability.
++ Analyze SLA pass and fail logs in FortiAnalyzer if logging is enabled.
++ Check the `sla_map` value to understand which SLA targets are being met.
