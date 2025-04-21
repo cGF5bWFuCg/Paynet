@@ -202,3 +202,44 @@ Provides similar but more detailed information from the link monitor process.
 
 + Analyze SLA pass and fail logs in FortiAnalyzer if logging is enabled.
 + Check the `sla_map` value to understand which SLA targets are being met.
+
+## **Example Configuration: Link State with SLA**
+
+```bash
+config system sdwan
+    config health-check
+        edit "NAME"
+
+            set interval 5000                 # Send probe every 5 seconds
+            set failtime 3                    # 3 consecutive failures to mark link dead
+            set recoverytime 3                # 3 successful probes to mark it back alive
+            set probe-timeout 1000
+            set probe-count 5
+            set initial-state enable          # Assume link is alive at boot
+        next
+    end
+end
+```
+
+### **How This Works (Explained Step-by-Step)**
+
+| Parameter             | Description |
+|-----------------------|-------------|
+| `interval 5000`       | Probe is sent every 5 seconds |
+| `failtime 3`          | Link will be marked **dead** if 3 probes in a row fail (i.e., 15 seconds of failure) |
+| `recoverytime 3`      | Link will be marked **alive** again after 3 successful probes in a row |
+| `initial-state enable`| Link starts as alive at boot to avoid routing flaps |
+| `probe-count 5`       | FortiGate calculates metrics like jitter/loss from the last 5 probes |
+---
+
+## **Quality Criteria** 
+Refers to the **metric used by the "Best Quality" SD-WAN rule strategy to determine the preferred member for steering traffic**.
+
+*   **Latency (default)**: FortiGate prefers the member with the **lowest latency**.
+*   **Jitter**: FortiGate prefers the member with the **lowest jitter**.
+*   **Packet Loss**: FortiGate prefers the member with the **lowest packet loss**.
+*   **Bandwidth**: This option has three measurement types:
+    *   **Inbandwidth (ingress)**: FortiGate prefers the member with the **most available ingress bandwidth**.
+    *   **Outbandwidth (egress)**: FortiGate prefers the member with the **most available egress bandwidth**.
+    *   **Bibandwidth (bidirectional)**: FortiGate prefers the member with the **most available combined ingress and egress bandwidth**. The available bandwidth is based on the interface settings (`estimated-upstream-bandwidth` and `estimated-downstream-bandwidth`) and current usage; if these settings are not defined, the physical interface speed is used.
+*   **Custom-profile-1**: This option allows for a **weight-based calculation** of a **link quality index** using **latency, jitter, packet loss, and bibandwidth**. You can assign weights to each metric to influence the index, and the member with the **lowest link quality index** is preferred. You can assign a weight of 0 to ignore a specific metric in the calculation.
