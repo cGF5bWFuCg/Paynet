@@ -81,19 +81,30 @@ Absolutely! Here's a comprehensive and realistic **SLA target values table** for
 
 These values are great for configuring **Fortinet SD-WAN Performance SLAs** to ensure optimal application performance and user experience.
 
+### **Application-Specific SLA Targets**
+
+| Application     | Latency | Jitter | Packet Loss |
+|-----------------|---------|--------|--------------|
+| **VoIP (e.g. SIP)**      | < 100 ms | < 20 ms | < 1%        |
+| **Video Conferencing**   | < 150 ms | < 30 ms | < 1%        |
+| **Web/Cloud Apps**       | < 250 ms | < 50 ms | < 2%        |
+| **Critical Apps (ERP, CRM)** | < 100 ms | < 30 ms | < 1%     |
+
+### **Application Categories with Examples**
+
+| **Category**               | **Description**                                                                 | **Example Applications**                                  | **SLA Sensitivity**      |
+|---------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------|--------------------------|
+| **Real-Time Communication** | Requires low latency and jitter for seamless experience                        | MS Teams (Audio/Video), Webex, Zoom, VoIP Calls            | Very High                |
+| **Collaboration Tools**   | Used for team collaboration, may include chat, screen share, and file sharing   | Microsoft Teams (Chat, Share), Slack, Webex Teams          | High                    |
+| **Email and Messaging**   | Email platforms, more tolerant to network delay                                 | Microsoft Outlook, Gmail, Exchange Online                  | Moderate                |
+| **Office Productivity**   | Cloud-based productivity tools                                                  | Microsoft 365 (Word, Excel, PowerPoint, OneDrive)          | Moderate                |
+| **Web Browsing**          | General internet use                                                            | Chrome, Edge, Firefox, Intranet Portals                    | Low to Moderate         |
+| **Cloud/SaaS Applications**| Hosted on cloud, varies in criticality                                          | Salesforce, ServiceNow, Google Workspace                   | High (for real-time apps) |
+| **File Transfer and Backup** | Large data movement, sensitive to throughput and loss                          | Dropbox, OneDrive Sync, Google Drive, FTP/SFTP             | Low to Moderate          |
+| **Video Streaming**       | Continuous media delivery                                                       | YouTube, Vimeo, internal training videos                   | Moderate                 |
+| **ERP/CRM Systems**       | Business-critical tools hosted locally or on cloud                              | SAP, Oracle NetSuite, Dynamics 365                         | High                    |
+| **IT and Security Services** | Backend services like DNS, AD, antivirus updates                              | DNS Servers, Microsoft Update, Antivirus Traffic           | Low                     |
 ---
-
-## **SLA Target Table for Fortinet SD-WAN – Typical & Application-Specific**
-
-| **Application / Use Case**   | **Latency (ms)** | **Jitter (ms)** | **Packet Loss (%)** | **Notes** |
-|-----------------------------|------------------|------------------|----------------------|----------|
-| **General Internet Surfing**| ≤ 250            | ≤ 50             | ≤ 2%                 | Includes browsing, cloud dashboards, non-critical HTTP/S |
-| **Microsoft 365 (Office Apps)** | ≤ 150        | ≤ 30             | ≤ 1%                 | Word, Excel, SharePoint, OneDrive online performance depends on region/CDN |
-| **Outlook / Exchange Online** | ≤ 120         | ≤ 20             | ≤ 1%                 | Includes mail sync, Outlook online – latency-sensitive |
-| **Microsoft Teams – Voice/Video** | ≤ 100     | ≤ 20             | ≤ 1%                 | Real-time traffic; prefer low jitter and consistent path |
-| **Webex (Voice/Video)**     | ≤ 150            | ≤ 30             | ≤ 1%                 | Sensitive to jitter, similar to MS Teams |
-| **Microsoft Teams – Chat & Collaboration** | ≤ 150 | ≤ 30         | ≤ 1%                 | Less sensitive than audio/video, but important for experience |
-| **Cloud-Based SaaS (general)** | ≤ 200         | ≤ 40             | ≤ 1.5%               | Generic guidance for popular cloud apps like Dropbox, Box, Slack |
 *   **SLA Map**:
     ```bash
     diagnose sys sdwan health-check status
