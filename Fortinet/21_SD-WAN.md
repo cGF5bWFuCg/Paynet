@@ -248,3 +248,14 @@ Refers to the **metric used by the "Best Quality" SD-WAN rule strategy to determ
 `Latency:  150 ms` | `Jitter:  30 ms` | `Packet loss:  1 %`
 ##### Office 365
 `Latency:  250 ms` | `Jitter:  50 ms` | `Packet loss:  5 %`
+---
+```bash
+show sys sdwan
+diagnose sys sdwan zone
+get router info routing-table all
+set sla-fail-log-period 10         # Log failure every 10 seconds
+set sla-pass-log-period 10        # Log success every 300 seconds
+set probe-count 5                  # Average last 5 probes
+diag sys sdwan health-check status
+diag sys link-monitor interface <INTERFACE>
+```
