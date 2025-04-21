@@ -51,3 +51,92 @@ config system sdwan config service
 diagnose sys sdwan service4
 ``` 
 This command shows information like the rule's flags, tie-breaking method, and the status (alive/selected) of its members.
+___
+## **Performance Service Level Agreements (SLAs)** 
+
+**Monitor the health and performance of SD-WAN members**. 
+While configuring them is **<ins>optional**</ins>, it is recommended to ensure that **<ins>members meet the necessary requirements**</ins> for steering traffic effectively.
+
+*   **Purpose and Function**:
+    *   They <ins>**monitor the health**</ins> (state: alive or dead) and <ins>**performance (packet loss, latency, and jitter)</ins>** of SD-WAN members. They can also monitor the <ins>**Mean Opinion Score (MOS)** for voice quality.
+    *   Performance SLAs can also **<ins>detect situations where an interface is physically up but FortiGate cannot reach the desired destination</ins>**, flagging the link as dead.
+
+*   **Configuration**:
+    *   Performance SLAs can be configured in the FortiGate GUI under **Network > SD-WAN > Performance SLAs** or on FortiManager under **root > Device Manager > Provisioning Templates > SD-WAN Templates > Performance SLA**.
+    *   Each Performance SLA has multiple sections:
+        *   **Health check:** Defines how the member health check is performed and which members it applies to, including probe settings, servers, and member selection.
+        *   **SLA Target:** Defines the performance requirements (latency, jitter, packet loss, MOS) that alive members must meet to be preferred for traffic steering. You can configure one or more SLA targets per Performance SLA.
+        *   **Action When Inactive:** Allows configuring actions like updating static routes or bringing down/up alert interfaces based on member state changes.
+        *   **Advanced Options:** Includes settings for probe timeout, probe count, DSCP code for probes, warning and alert thresholds, and SLA logging periods.
+
+*   **Health Check Methods (Probe Modes)**:
+    *   **Active:** FortiGate periodically sends probes through the member to monitor its health and performance against configured servers (beacons).
+    *   **Passive:** FortiGate monitors the actual network traffic flowing through the member to determine its performance. This requires enabling `passive-wan-health-measurement` in at least one firewall policy with an SD-WAN zone as source or destination. You can also specify the service for passive measurement in the SD-WAN rule.
+    *   **Prefer Passive:** FortiGate uses passive mode first and switches to active mode if there's no TCP traffic across the member for three minutes.
+    *   **Remote:** FortiGate uses SLA information received from a remote device. This often involves the spoke embedding SLA information in ICMP probes, and the hub using this information.
+    *   **Agent Based:** FortiGate collaborates with FortiMonitor agents to collect application-level performance statistics per link.
+
+*   **Probe Protocols (for Active Monitoring)**:
+    *   **General-purpose (IPv4 & IPv6):** Ping (ICMP echo requests), UDP echo (sends UDP requests on port 7 and expects an identical copy back), TCP connect (uses a full TCP connection to test the link). TWAMP (Two-Way Active Measurement Protocol - client-side implementation on FortiGate). IPv4 only: TCP echo (sends TCP requests on port 7 and expects a copy back).
+    *   **Application-specific (IPv4 & IPv6):** DNS, FTP. IPv4 only: HTTP, HTTPS. IPv6 only: No TCP echo, HTTP, or TWAMP support.
+
+*   **SLA Targets**:
+    *   Define the **minimum performance requirements** for latency, jitter, and packet loss. You can also set a **MOS threshold** for voice traffic.
+    *   Used by **Lowest Cost (SLA)** SD-WAN rules to determine preferred members.
+    *   Members that meet one or more SLA targets are preferred for steering traffic in "Lowest Cost (SLA)" rules.
+    *   You can configure **multiple SLA targets** per Performance SLA, allowing for different performance requirements for the same monitoring mode. This enables steering different types of traffic based on stricter or more lenient SLA targets.
+
+*   **SLA Map**:
+    *   The `sla_map` value in the output of `diagnose sys sdwan health-check status` indicates whether a member meets the configured SLA targets using a **bitmask representation**.
+    *   Each configured SLA target is assigned a bit (first target is bit 0, second is bit 1, etc.).
+    *   If a member meets an SLA target, the corresponding bit is set to **1**; otherwise, it's **0**.
+    *   The `sla_map` value is the **hexadecimal representation** of this binary number. For example, with two SLA targets, `0x3` means both are met (11), `0x2` means the second is met but the first is not (10), `0x1` means the first is met but the second is not (01), and `0x0` means neither is met (00). `0x0` can also mean that no SLA targets are configured.
+
+*   **Integration with SD-WAN Rules**:
+    *   SD-WAN rules, particularly those using the **"Lowest Cost (SLA)" strategy**, rely on Performance SLAs and their targets to select the best outgoing interface. Members that meet the configured SLA targets are preferred.
+    *   The **"Best Quality" strategy** in SD-WAN rules uses the performance metrics (latency, packet loss, jitter, bandwidth, or a custom link quality index) measured by Performance SLAs to choose the best performing link, without considering SLA targets.
+    *   Even with manual SD-WAN rules, configuring Performance SLAs improves the detection of alive or dead members.
+
+*   **Monitoring Member State and Performance**:
+    *   **FortiManager GUI:** You can monitor the health of members under **Monitors > SD-WAN Monitor** and view graphs of packet loss, latency, and jitter under **Provisioning Templates > SD-WAN > Performance SLA** by selecting a specific SLA. Members that don't meet SLA targets are often highlighted (e.g., with orange or red icons).
+    *   **FortiGate GUI:** Navigate to **Network > SD-WAN > Performance SLAs** to see the real-time status (up/down) of members and any SLA target violations. The **Dashboard > Network > Routing** widget can also provide some SD-WAN information.
+    *   **FortiGate CLI:**
+        *   `diagnose sys sdwan health-check status <SLA_name>`: Displays the status of a specific Performance SLA, including the state (alive/dead) and measured metrics (packet loss, latency, jitter, MOS, bandwidth) for each member, as well as the `sla_map`.
+        *   `diagnose sys link-monitor interface <interface_name>`: Shows detailed metrics measured by the link-monitor process for a specific member.
+        *   `diagnose sys sdwan sla-log <SLA_name> <member_id>`: Displays historical SLA metrics for a specific member over the last 10 minutes. The member ID can be found in the `health-check status` output.
+        *   `diagnose sys sdwan intf-sla-log <interface_name>`: Shows SLA logs per interface.
+        *   `diagnose sys sdwan service4`: Displays the status of IPv4 SD-WAN rules, including the health check used.
+
+*   **Advanced Performance SLA Settings**:
+    *   **Warning and Alert Thresholds:** You can configure thresholds for packet loss, latency, and jitter. Exceeding these thresholds can trigger visual notifications in the GUI and generate log messages.
+    *   **SLA Fail/Pass Logging:** By default, SLA health-check results are not logged. You can enable logging and set the frequency (in seconds) for generating logs when a member fails (`sla-fail-log-period`) or passes (`sla-pass-log-period`) its SLA targets. These settings are under **Advanced Options** in the Performance SLA configuration.
+    *   **Probe Settings:** You can adjust the `probe-timeout` (time to wait for a probe response) and `probe-count` (number of recent probes used for metric calculation).
+    *   **DSCP Code:** You can set a DSCP (Differentiated Services Code Point) value for health-check probes, which can be useful when monitoring links that prioritize traffic based on DSCP markings (e.g., some MPLS links).
+    *   **Link Cost Factor:** For MOS SLAs, you can set the `link-cost-factor` to `mos`. For latency, there's a `link-cost-factor latency` setting.
+    *   **Initial State:** Initially, all configured members are assigned the alive state.
+
+*   **Mean Opinion Score (MOS)**:
+    *   Used to measure the perceived quality of voice communication, taking into account latency, jitter, packet loss, and the codec.
+    *   The MOS score ranges from 1 (poor) to 5 (very good).
+    *   You can configure Performance SLAs with MOS criteria, selecting the MOS codec (G.711, G.729, or G.722 - default is G.711). The chosen codec should match the one used for voice traffic.
+    *   A MOS threshold (between 1.0 and 5.0, default 3.6) determines the minimum acceptable voice quality.
+    *   MOS-based SLAs can only be used with SD-WAN rules using the **Lowest Cost (SLA)** strategy.
+
+*   **Remote Health Checks and Embedded SLA Information**:
+    *   Involves the hub using SLA results provided by the spoke (remote device).
+    *   On the spoke, you enable embedding measured health in probes (typically ICMP) using `set embed-measured-health enable`.
+    *   On the hub, you set the `detect-mode` to `remote` in the Performance SLA configuration. You can also define priority for IKE routes based on whether the overlay is in SLA (`set priority-in-sla`) or out of SLA (`set priority-out-sla`).
+    *   This method is useful with static routing or BGP, especially with loopback topologies, but not compatible with IKE option mode-cfg.
+
+*   **Link Cost and Tie-breaking**:
+    *   In "Lowest Cost (SLA)" rules, if multiple members meet the SLA targets, the **member cost** (configured for each member) is used as a tiebreaker (lower cost is preferred).
+    *   If members have the same SLA status and cost, the **configuration priority (interface preference order)** is used as the next tiebreaker.
+    *   The `service-sla-tie-break` setting in the SD-WAN member configuration allows for different tie-breaking methods when multiple members meet the SLA in "Lowest Cost (SLA)" rules, such as `cfg-order` (configuration order - default), `fib-best-match`, and `input-device`.
+
+*   **Troubleshooting Performance SLAs**:
+    *   Use the `diagnose sys sdwan health-check status` command to get a real-time overview of SLA status and metrics.
+    *   The `diagnose sys link-monitor interface` command provides similar but more detailed information from the link monitor process.
+    *   Analyze SLA pass and fail logs in FortiAnalyzer if logging is enabled.
+    *   Check the `sla_map` value to understand which SLA targets are being met.
+
+By configuring and monitoring Performance SLAs, administrators can ensure that SD-WAN traffic is steered across links that meet the required performance criteria for various applications, leading to improved user experience and network reliability.
