@@ -80,7 +80,7 @@ These values are great for configuring **Fortinet SD-WAN Performance SLAs** to e
 
 ---
 
-## ✅ **SLA Target Table for Fortinet SD-WAN – Typical & Application-Specific**
+## **SLA Target Table for Fortinet SD-WAN – Typical & Application-Specific**
 
 | **Application / Use Case**   | **Latency (ms)** | **Jitter (ms)** | **Packet Loss (%)** | **Notes** |
 |-----------------------------|------------------|------------------|----------------------|----------|
